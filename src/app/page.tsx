@@ -30,7 +30,7 @@ export default function Home() {
       try {
         const data = await searchMovies("Avengers");
         setMovies(data);
-      } catch (e) {
+      } catch {
         setError("Failed to fetch movies.");
       } finally {
         setLoading(false);
