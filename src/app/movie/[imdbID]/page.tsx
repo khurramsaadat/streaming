@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 import { getMovieById, OmdbMovieDetail } from "../../../lib/omdb";
 import Link from "next/link";
+import Image from "next/image";
 
 // Helper to get YouTube embed URL by searching for trailer
 async function getYouTubeTrailerUrl(title: string): Promise<string | null> {
@@ -39,7 +40,7 @@ function ErrorCard() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 5c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
         </svg>
         <h2 className="text-xl font-bold text-red-400 mb-2">Movie not found or OMDb fetch failed</h2>
-        <p className="text-zinc-300 mb-4 text-center">We couldn't load this movie. Please check your internet connection or try again later.</p>
+        <p className="text-zinc-300 mb-4 text-center">We couldn&apos;t load this movie. Please check your internet connection or try again later.</p>
         <Link href="/" className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-4 py-2 rounded transition">Back to Home</Link>
       </div>
     </div>
@@ -51,7 +52,7 @@ export default async function MovieDetailPage(props: { params: Promise<{ imdbID:
   let movie: OmdbMovieDetail | null = null;
   try {
     movie = await getMovieById(params.imdbID);
-  } catch (error) {
+  } catch {
     movie = null;
   }
   if (!movie) {
@@ -66,7 +67,7 @@ export default async function MovieDetailPage(props: { params: Promise<{ imdbID:
           {/* Poster */}
           <div className="flex-shrink-0 w-full md:w-56 flex justify-center items-start">
             {movie.Poster && movie.Poster !== "N/A" ? (
-              <img src={movie.Poster} alt={movie.Title} className="rounded w-40 md:w-56 aspect-[2/3] object-cover" />
+              <Image src={movie.Poster} alt={movie.Title} width={224} height={336} className="rounded w-40 md:w-56 aspect-[2/3] object-cover" />
             ) : (
               <div className="w-40 md:w-56 aspect-[2/3] bg-zinc-700 rounded flex items-center justify-center text-zinc-400 text-xs">No Image</div>
             )}

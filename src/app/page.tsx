@@ -7,6 +7,7 @@ import {
   removeContinueWatching,
 } from "../lib/localStorage";
 import Link from "next/link";
+import Image from "next/image";
 
 function PlayIcon({ filled = false }: { filled?: boolean }) {
   return filled ? (
@@ -85,9 +86,11 @@ export default function Home() {
                 <Link href={`/movie/${movie.imdbID}`} className="block w-full" key={movie.imdbID}>
                   <div className={cardClass + " cursor-pointer hover:ring-2 hover:ring-indigo-500 transition"}>
                     {movie.Poster && movie.Poster !== "N/A" ? (
-                      <img
+                      <Image
                         src={movie.Poster}
                         alt={movie.Title}
+                        width={90}
+                        height={120}
                         className={imgClass}
                       />
                     ) : (
@@ -123,9 +126,11 @@ export default function Home() {
                 <Link href={`/movie/${movie.imdbID}`} className="block w-full" key={movie.imdbID}>
                   <div className={cardClass + " cursor-pointer hover:ring-2 hover:ring-indigo-500 transition"}>
                     {movie.Poster && movie.Poster !== "N/A" ? (
-                      <img
+                      <Image
                         src={movie.Poster}
                         alt={movie.Title}
+                        width={90}
+                        height={120}
                         className={imgClass}
                       />
                     ) : (
@@ -139,7 +144,7 @@ export default function Home() {
                           : " bg-zinc-900/80 hover:bg-indigo-600")
                       }
                       title={inContinue ? "Remove from Continue Watching" : "Add to Continue Watching"}
-                      onClick={e => { e.preventDefault(); e.stopPropagation(); handleToggleContinue(movie); }}
+                      onClick={() => handleToggleContinue(movie)}
                       style={{ pointerEvents: "auto", zIndex: 10 }}
                     >
                       <PlayIcon filled={inContinue} />
